@@ -11,6 +11,10 @@ from selenium.webdriver.chrome.options import Options
 import shutil
 import time
 from selenium.webdriver.common.by import By
+# selenium 4
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service as ChromeService
+from webdriver_manager.chrome import ChromeDriverManager
 
 # log config
 logging.basicConfig()
@@ -50,7 +54,8 @@ class SciHub(object):
             "plugins.always_open_pdf_externally": True
         })
 
-        self.driver = webdriver.Chrome(executable_path=chrome_driver_path, options=chrome_options)
+        self.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+#         self.driver = webdriver.Chrome(executable_path=chrome_driver_path, options=chrome_options)
 
     def _get_available_scihub_urls(self):
         return ['https://sci-hub.ee', 'https://sci-hub.shop', 'https://sci-hub.se', 'https://sci-hub.st',
